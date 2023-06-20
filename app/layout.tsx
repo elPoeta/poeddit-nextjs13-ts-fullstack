@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" >
-      <body className={classTwMerge('dark:bg-slate-900 dark:text-white dark bg-white text-slate-900 antialiased', nunito.className)} style={{ colorScheme: 'dark' }}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={classTwMerge('dark:bg-slate-900 dark:text-white bg-white text-slate-900 antialiased', nunito.className)} style={{ colorScheme: 'dark' }} >
         <Providers>
           <header></header>
           <main>
