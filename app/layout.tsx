@@ -1,5 +1,5 @@
 import Providers from '@/components/providers/Providers'
-import { classTwMerge } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
 import { Nunito } from 'next/font/google'
 
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={classTwMerge('dark:bg-slate-900 dark:text-white bg-white text-slate-900 antialiased', nunito.className)} style={{ colorScheme: 'dark' }} >
+      <body className={cn('dark:bg-slate-900 dark:text-white bg-white text-slate-900 antialiased', nunito.className)} style={{ colorScheme: 'dark' }} >
         <Providers>
           <header></header>
           <main>
