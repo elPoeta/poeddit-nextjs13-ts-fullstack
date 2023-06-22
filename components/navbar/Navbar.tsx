@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Icons } from "../icons/Icons"
 import SearchBar from "./SearchBar"
 import { buttonVariants } from "../ui/Button"
+import ToggleTheme from "./ToggleTheme"
 
 
 const Navbar = () => {
@@ -15,7 +16,10 @@ const Navbar = () => {
 
       <SearchBar />
 
-      <Link href='/sign-in' className={buttonVariants()}>Sign In</Link>
+      <div className="flex items-center justify-center">
+        <ToggleTheme />
+        <Link href='/sign-in' className={buttonVariants()}>Sign In</Link>
+      </div> 
     
     </nav>
   )
