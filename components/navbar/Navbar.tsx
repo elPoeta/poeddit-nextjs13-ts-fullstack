@@ -11,12 +11,12 @@ const Navbar = () => {
     <nav className='container max-w-7xl h-full mx-auto flex items-center justify-between gap-2'>
       <Link href='/' className='flex gap-2 items-center'>
         <Icons.logo className='h-8 w-8 sm:h-6 sm:w-6' />
-        <p className='hidden dark:text-gray-50 text-zinc-700 text-lg font-medium md:block'>poeddit</p>
+        <p className='hidden text-lg font-medium md:block'>poeddit</p>
       </Link>
 
       <SearchBar />
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center gap-2">
         <ToggleTheme />
         <Link href='/sign-in' className={buttonVariants()}>Sign In</Link>
       </div> 
