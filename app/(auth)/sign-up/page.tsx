@@ -1,4 +1,3 @@
-
 import Auth from '@/components/auth/Auth'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
@@ -6,7 +5,8 @@ import { ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
 
-const Login: FC = () => {
+
+const Register = () => {
   return (
     <div className='absolute inset-0'>
       <div className='h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20'>
@@ -20,10 +20,10 @@ const Login: FC = () => {
           Home
         </Link>
 
-        <Auth isSignIn />
+        <Auth isSignIn={false} />
       </div>
     </div>
   )
 }
 
-export default Login
+export default Register
