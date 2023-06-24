@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FC } from "react"
 import { Icons } from "../icons/Icons";
+import UserAuthForm from "./UserAuthForm";
 
 interface AuthProps {
   isSignIn: boolean;
@@ -25,7 +26,7 @@ const Auth:FC<AuthProps> = (props) => {
           User Agreement and Privacy Policy.
         </p>
       </div>
-      
+      <UserAuthForm />
       <p className='px-8 text-center text-sm text-muted-foreground'>
         {linkLabel}{' '}
         <Link

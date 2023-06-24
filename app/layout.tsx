@@ -1,5 +1,6 @@
 import Navbar from '@/components/navbar/Navbar'
 import Providers from '@/components/providers/Providers'
+import { Toaster } from '@/components/ui/Toaster'
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
 import { Nunito } from 'next/font/google'
@@ -27,6 +28,7 @@ export default function RootLayout({
             {children}
           </main>
         </Providers>
+        <Toaster />
       </body>
     </html>
   )
