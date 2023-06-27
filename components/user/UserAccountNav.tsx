@@ -2,7 +2,7 @@
 
 import { User } from 'next-auth'
 import React, { FC } from 'react'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuItem } from '../ui/DropdownMenu'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuItem } from '@/components/ui/DropdownMenu'
 import UserAvatar from './UserAvatar'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'

@@ -1,16 +1,14 @@
-'use client'
 
 import Link from "next/link";
 import { FC } from "react"
 import { Icons } from "../icons/Icons";
 import UserAuthForm from "./UserAuthForm";
 
-interface AuthProps {
+export interface AuthProps {
   isSignIn: boolean;
 }
 
-const Auth:FC<AuthProps> = (props) => {
-  const { isSignIn } = props;
+const Auth:FC<AuthProps> = ({ isSignIn }) => {
   const title = isSignIn ? 'Welcome back' : 'Sign Up'
   const goTo = isSignIn ? '/sign-up' : '/sign-in'
   const linkTitle = isSignIn ? 'Sign Up' : 'Sign In'

@@ -14,8 +14,10 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+ //authModal
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+ // authModal: React.ReactNode
 }) {
   return (
     <html lang="en"  suppressHydrationWarning>
@@ -27,6 +29,7 @@ export default function RootLayout({
           <main className='container max-w-7xl mx-auto h-full pt-12'>
             {children}
           </main>
+        {/*{authModal}*/}
         </Providers>
         <Toaster />
       </body>
