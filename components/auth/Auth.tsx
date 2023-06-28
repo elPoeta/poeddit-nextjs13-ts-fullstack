@@ -4,11 +4,11 @@ import { FC } from "react"
 import { Icons } from "../icons/Icons";
 import UserAuthForm from "./UserAuthForm";
 
-export interface AuthProps {
+export interface AuthProps extends React.HTMLAttributes<HTMLDivElement> {
   isSignIn: boolean;
 }
 
-const Auth:FC<AuthProps> = ({ isSignIn }) => {
+const Auth:FC<AuthProps> = ({ className, isSignIn }) => {
   const title = isSignIn ? 'Welcome back' : 'Sign Up'
   const goTo = isSignIn ? '/sign-up' : '/sign-in'
   const linkTitle = isSignIn ? 'Sign Up' : 'Sign In'
@@ -24,7 +24,7 @@ const Auth:FC<AuthProps> = ({ isSignIn }) => {
           User Agreement and Privacy Policy.
         </p>
       </div>
-      <UserAuthForm />
+      <UserAuthForm className={className}/>
       <p className='px-8 text-center text-sm text-muted-foreground'>
         {linkLabel}{' '}
         <Link
