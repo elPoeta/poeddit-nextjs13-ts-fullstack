@@ -3,6 +3,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { db } from "./prisma";
 import GithubProvider from 'next-auth/providers/github'
 import { nanoid } from "nanoid";
+import { findUserByEmail, updateUserById } from "@/db/user";
 
 export const authOptions:NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -32,11 +33,12 @@ export const authOptions:NextAuthOptions = {
     },
 
     async jwt({ token, user }) {
-      const dbUser = await db.user.findFirst({
-        where: {
-          email: token.email,
-        },
-      })
+      const dbUser = await findUserByEmail(token.email); 
+      // await db.user.findFirst({
+      //   where: {
+      //     email: token.email,
+      //   },
+      // })
 
       if (!dbUser) {
         token.id = user!.id
@@ -44,14 +46,15 @@ export const authOptions:NextAuthOptions = {
       }
 
       if (!dbUser.username) {
-        await db.user.update({
-          where: {
-            id: dbUser.id,
-          },
-          data: {
-            username: nanoid(10),
-          },
-        })
+        await updateUserById(dbUser.id, { username: nanoid(10)});
+        // await db.user.update({
+        //   where: {
+        //     id: dbUser.id,
+        //   },
+        //   data: {
+        //     username: nanoid(10),
+        //   },
+        // })
       }
 
       return {
