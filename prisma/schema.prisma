@@ -47,23 +47,23 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?        @unique
   emailVerified DateTime?
-  username      String?   @unique
+  subpoeddits   Subpoeddit[]   @relation("CreatedBy")
+  subscriptions Subscription[]
+  votes         Vote[]
+
+  username String? @unique
 
   image    String?
   accounts Account[]
   sessions Session[]
 
-  subpoeddits   Subpoeddit[]   @relation("CreatedBy")
-  subscriptions Subscription[]
-  votes         Vote[]
-
-  posts        Post[]
-  comments     Comment[]
-  commentVotes CommentVote[]
+  Post        Post[]
+  Comment     Comment[]
+  CommentVote CommentVote[]
 }
 
 model Subpoeddit {
@@ -74,7 +74,7 @@ model Subpoeddit {
   posts     Post[]
 
   creatorId   String?
-  creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
+  Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
   subscribers Subscription[]
 
   @@index([name])
