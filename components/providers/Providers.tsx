@@ -1,5 +1,7 @@
 'use client'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { FC, ReactNode } from 'react';
@@ -9,11 +11,15 @@ interface ProviderProps {
 }
 
 const Providers: FC<ProviderProps> = ({ children }) => {
+  const queryClient = new QueryClient()
   return (
     <ThemeProvider attribute='class'>
-      <SessionProvider>
-        {children}
-      </SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </ThemeProvider>
   )
 }

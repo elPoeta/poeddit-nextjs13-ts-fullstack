@@ -5,21 +5,22 @@ import { Avatar, AvatarFallback } from '../ui/Avatar'
 import Image from 'next/image'
 import { Icons } from '../icons/Icons'
 
-interface UserAvatarProps extends AvatarProps{
-  user: Pick<User, 'name' | 'image' >
+interface UserAvatarProps extends AvatarProps {
+  user: Pick<User, 'name' | 'image'>
 }
 
 
-const UserAvatar:FC<UserAvatarProps> = ({user, ...props}) => {
+const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {
   return (
-   <Avatar {...props}>
-     {user.image ? (
+    <Avatar {...props}>
+      {user.image ? (
         <div className='relative aspect-square h-full w-full'>
           <Image
             fill
             src={user.image}
             alt='profile picture'
             referrerPolicy='no-referrer'
+            sizes='50px'
           />
         </div>
       ) : (
@@ -28,7 +29,7 @@ const UserAvatar:FC<UserAvatarProps> = ({user, ...props}) => {
           <Icons.user className='h-4 w-4' />
         </AvatarFallback>
       )}
-   </Avatar>
+    </Avatar>
   )
 }
 
