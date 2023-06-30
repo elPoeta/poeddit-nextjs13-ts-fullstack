@@ -6,7 +6,13 @@ import { ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
 
-const Login: FC = () => {
+export const metadata = {
+  title: 'Login',
+  description: 'Login to poeddit with your github account',
+}
+
+
+const LoginPage: FC = () => {
   return (
     <div className='absolute inset-0'>
       <div className='h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20'>
@@ -26,4 +32,4 @@ const Login: FC = () => {
   )
 }
 
-export default Login
+export default LoginPage
