@@ -2,12 +2,38 @@
 
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { toast } from '@/hooks/use-toast'
+import { CreateSubPoedditPayload } from '@/lib/validators/subPoeddit'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const CreatePage = () => {
   const router = useRouter()
   const [input, setInput] = useState<string>('')
+
+  const { mutate: createSubpoeddit, isLoading } = useMutation({
+    mutationFn: async () => {
+      const payload: CreateSubPoedditPayload = { name: input }
+      const { data } = await axios.post("/api/subpoeddit", payload)
+      return data as string
+    },
+    onError: (error) => {
+      //TODO handle axios errors
+      console.error(error)
+
+      toast({
+        title: 'There was an error.',
+        description: 'Could not create subpoeddit.',
+        variant: 'destructive',
+      })
+    },
+    onSuccess: (data) => {
+      router.push(`/p/${data}`)
+    },
+  },
+  )
 
   return (
     <div className='container flex items-center h-full max-w-3xl mx-auto'>
@@ -37,15 +63,15 @@ const CreatePage = () => {
 
         <div className='flex justify-end gap-4'>
           <Button
-            disabled={false}
+            disabled={isLoading}
             variant='secondary'
             onClick={() => router.back()}>
             Cancel
           </Button>
           <Button
-            isLoading={false}
+            isLoading={isLoading}
             disabled={input.length === 0}
-            onClick={() => {}}>
+            onClick={() => createSubpoeddit()}>
             Create Community
           </Button>
         </div>
