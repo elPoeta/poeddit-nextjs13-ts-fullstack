@@ -2,17 +2,18 @@
 
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { useCustomToast } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
 import { CreateSubPoedditPayload } from '@/lib/validators/subPoeddit'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const CreatePage = () => {
   const router = useRouter()
   const [input, setInput] = useState<string>('')
-
+  const { logintoast } = useCustomToast()
   const { mutate: createSubpoeddit, isLoading } = useMutation({
     mutationFn: async () => {
       const payload: CreateSubPoedditPayload = { name: input }
@@ -20,9 +21,25 @@ const CreatePage = () => {
       return data as string
     },
     onError: (error) => {
-      //TODO handle axios errors
-      console.error(error)
-
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 409) {
+          return toast({
+            title: 'Subpoeddit already exist.',
+            description: 'Please choose a different subpoeddit name.',
+            variant: 'destructive',
+          })
+        }
+        if (error.response?.status === 422) {
+          return toast({
+            title: 'Invalid subpoeddit name',
+            description: 'Please choose a name between 3 and 20 characters.',
+            variant: 'destructive',
+          })
+        }
+        if (error.response?.status === 401) {
+          return logintoast()
+        }
+      }
       toast({
         title: 'There was an error.',
         description: 'Could not create subpoeddit.',
