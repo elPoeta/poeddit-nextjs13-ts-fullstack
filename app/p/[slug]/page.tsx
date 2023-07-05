@@ -1,3 +1,4 @@
+import MiniPostCreator from '@/components/posts/MiniPostCreator'
 import { findSubpoedditByNameIncludePosts } from '@/db/subPoeddit'
 import { getAuthSession } from '@/lib/auth'
 import { notFound } from 'next/navigation'
@@ -17,6 +18,7 @@ const subpoedditSlugPage: FC<SubpoedditSlugPageProps> = async ({ params }) => {
   return (
     <div>
       <h2 className='font-bold text-3xl md:text-4xl h-14'>p/{subpoeddit.name}</h2>
+      <MiniPostCreator session={session} />
     </div>
   )
 }
