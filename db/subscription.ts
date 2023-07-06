@@ -11,3 +11,29 @@ export const createSubscription = async (
     },
   });
 };
+
+export const findSubscriptionBySubpoedditNameAndUserId = async (
+  name: string,
+  userId: string
+) => {
+  return await db.subscription.findFirst({
+    where: {
+      subpoeddit: {
+        name,
+      },
+      user: {
+        id: userId,
+      },
+    },
+  });
+};
+
+export const subscriptionCount = async (name: string) => {
+  return db.subscription.count({
+    where: {
+      subpoeddit: {
+        name,
+      },
+    },
+  });
+};

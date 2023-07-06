@@ -9,7 +9,7 @@ export const findSubpoedditByName = async (name: string) => {
   });
 };
 
-export const findSubpoedditByNameIncludePosts = async (name: string) => {
+export const findSubpoedditByNameIncludePostsAll = async (name: string) => {
   return await db.subpoeddit.findFirst({
     where: {
       name,
@@ -23,6 +23,22 @@ export const findSubpoedditByNameIncludePosts = async (name: string) => {
           subpoeddit: true,
         },
         take: INFINITE_SCROLLING_PAGINATION,
+      },
+    },
+  });
+};
+
+export const findSubpoedditByNameIncludePosts = async (name: string) => {
+  return await db.subpoeddit.findFirst({
+    where: {
+      name,
+    },
+    include: {
+      posts: {
+        include: {
+          author: true,
+          votes: true,
+        },
       },
     },
   });

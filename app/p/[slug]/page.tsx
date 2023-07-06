@@ -1,5 +1,5 @@
 import MiniPostCreator from '@/components/posts/MiniPostCreator'
-import { findSubpoedditByNameIncludePosts } from '@/db/subPoeddit'
+import { findSubpoedditByNameIncludePostsAll } from '@/db/subPoeddit'
 import { getAuthSession } from '@/lib/auth'
 import { notFound } from 'next/navigation'
 import React, { FC } from 'react'
@@ -12,7 +12,7 @@ interface SubpoedditSlugPageProps {
 const subpoedditSlugPage: FC<SubpoedditSlugPageProps> = async ({ params }) => {
   const { slug } = params
   const session = await getAuthSession();
-  const subpoeddit = await findSubpoedditByNameIncludePosts(slug)
+  const subpoeddit = await findSubpoedditByNameIncludePostsAll(slug)
 
   if (!subpoeddit) return notFound()
   return (
