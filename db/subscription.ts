@@ -28,6 +28,22 @@ export const findSubscriptionBySubpoedditNameAndUserId = async (
   });
 };
 
+export const findSubscriptionBySubpoedditIdAndUserId = async (
+  subPoedditId: string,
+  userId: string
+) => {
+  return await db.subscription.findFirst({
+    where: {
+      subpoeddit: {
+        id: subPoedditId,
+      },
+      user: {
+        id: userId,
+      },
+    },
+  });
+};
+
 export const subscriptionCount = async (name: string) => {
   return db.subscription.count({
     where: {

@@ -1,7 +1,10 @@
+import SubscribeLeaveToggle from '@/components/subscriptions/SubscribeLeaveToggle'
+import { buttonVariants } from '@/components/ui/Button'
 import { findSubpoedditByNameIncludePosts } from '@/db/subPoeddit'
 import { findSubscriptionBySubpoedditNameAndUserId, subscriptionCount } from '@/db/subscription'
 import { getAuthSession } from '@/lib/auth'
 import { format } from 'date-fns'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React, { FC, ReactNode } from 'react'
 
@@ -49,6 +52,17 @@ const Layout: FC<LayoutProps> = async ({ children, params }) => {
                 </div>
               ) : null}
 
+              {subpoeddit.creatorId !== session?.user?.id ? (
+                <SubscribeLeaveToggle subpoedditId={subpoeddit.id} subpoedditName={subpoeddit.name} />
+              ) : null}
+              <Link
+                className={buttonVariants({
+                  variant: 'outline',
+                  className: 'w-full mb-6',
+                })}
+                href={`r/${params.slug}/submit`}>
+                Create Post
+              </Link>
 
             </dl>
           </div>
