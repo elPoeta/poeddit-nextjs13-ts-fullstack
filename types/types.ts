@@ -1,15 +1,22 @@
-declare namespace NodeJS {
-  export interface ProcessEnv {
-    DATABASE_URL: string;
-    NEXTAUTH_SECRET: string;
+import { z } from "zod";
 
-    GITHUB_CLIENT_ID: string;
-    GITHUB_CLIENT_SECRET: string;
+const envVariables = z.object({
+  DATABASE_URL: z.string(),
+  NEXTAUTH_SECRET: z.string(),
 
-    UPLOADTHING_SECRET: string;
-    UPLOADTHING_APP_ID: string;
+  GITHUB_CLIENT_ID: z.string(),
+  GITHUB_CLIENT_SECRET: z.string(),
 
-    REDIS_URL: string;
-    REDIS_SECRET: string;
+  UPLOADTHING_SECRET: z.string(),
+  UPLOADTHING_APP_ID: z.string(),
+
+  REDIS_URL: z.string(),
+  REDIS_SECRET: z.string(),
+});
+
+envVariables.parse(process.env);
+declare global {
+  namespace NodeJS {
+    export interface ProcessEnv extends z.infer<typeof envVariables> {}
   }
 }
