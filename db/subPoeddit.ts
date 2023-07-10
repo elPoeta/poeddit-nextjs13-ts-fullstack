@@ -9,6 +9,18 @@ export const findSubpoedditByName = async (name: string) => {
   });
 };
 
+export const findSubpoedditByIdAndCreatorId = async (
+  id: string,
+  creatorId: string
+) => {
+  return await db.subpoeddit.findFirst({
+    where: {
+      id,
+      creatorId,
+    },
+  });
+};
+
 export const findSubpoedditByNameIncludePostsAll = async (name: string) => {
   return await db.subpoeddit.findFirst({
     where: {

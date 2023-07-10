@@ -12,6 +12,20 @@ export const createSubscription = async (
   });
 };
 
+export const leaveSubscription = async (
+  userId: string,
+  subpoedditId: string
+) => {
+  return await db.subscription.delete({
+    where: {
+      userId_subpoedditId: {
+        subpoedditId,
+        userId,
+      },
+    },
+  });
+};
+
 export const findSubscriptionBySubpoedditNameAndUserId = async (
   name: string,
   userId: string

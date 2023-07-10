@@ -53,7 +53,7 @@ const Layout: FC<LayoutProps> = async ({ children, params }) => {
               ) : null}
 
               {subpoeddit.creatorId !== session?.user?.id ? (
-                <SubscribeLeaveToggle subpoedditId={subpoeddit.id} subpoedditName={subpoeddit.name} />
+                <SubscribeLeaveToggle isSubscribed={isSubscribed} subpoedditId={subpoeddit.id} subpoedditName={subpoeddit.name} />
               ) : null}
               <Link
                 className={buttonVariants({
