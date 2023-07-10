@@ -1,6 +1,5 @@
 import { findSubpoedditByIdAndCreatorId } from "@/db/subPoeddit";
 import {
-  createSubscription,
   findSubscriptionBySubpoedditIdAndUserId,
   leaveSubscription,
 } from "@/db/subscription";
