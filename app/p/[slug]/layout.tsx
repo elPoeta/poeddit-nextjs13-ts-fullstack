@@ -60,7 +60,7 @@ const Layout: FC<LayoutProps> = async ({ children, params }) => {
                   variant: 'outline',
                   className: 'w-full mb-6',
                 })}
-                href={`r/${params.slug}/submit`}>
+                href={`/p/${params.slug}/submit`}>
                 Create Post
               </Link>
 
