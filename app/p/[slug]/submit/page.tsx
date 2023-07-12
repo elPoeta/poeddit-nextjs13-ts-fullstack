@@ -1,3 +1,5 @@
+import Editor from '@/components/editor/Editor';
+import { Button } from '@/components/ui/Button';
 import { findSubpoedditByName } from '@/db/subPoeddit';
 import { notFound } from 'next/navigation';
 import React, { FC } from 'react'
@@ -20,6 +22,12 @@ const submitPostPage: FC<SubmitPageProps> = async ({ params }) => {
           <h3 className='ml-2 mt-2 text-base font-semibold leading-6'>Create Post</h3>
           <p className='ml-2 mt-1 truncate text-sm text-gray-500 dark:text-slate-400'>in p/{subpoeddit.name}</p>
         </div>
+      </div>
+
+      <Editor subpoedditId={subpoeddit.id} />
+
+      <div className='w-full flex justify-end'>
+        <Button type='submit' className='w-full' form='subpoeddit-post-form'>Post</Button>
       </div>
     </div>
   )
