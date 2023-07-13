@@ -1,4 +1,5 @@
 import MiniPostCreator from '@/components/posts/MiniPostCreator'
+import PostFeed from '@/components/posts/PostFeed'
 import { findSubpoedditByNameIncludePostsAll } from '@/db/subPoeddit'
 import { getAuthSession } from '@/lib/auth'
 import { notFound } from 'next/navigation'
@@ -19,6 +20,7 @@ const subpoedditSlugPage: FC<SubpoedditSlugPageProps> = async ({ params }) => {
     <div>
       <h2 className='font-bold text-3xl md:text-4xl h-14'>p/{subpoeddit.name}</h2>
       <MiniPostCreator session={session} />
+      <PostFeed initialPosts={subpoeddit.posts} subpoedditName={subpoeddit.name} />
     </div>
   )
 }
