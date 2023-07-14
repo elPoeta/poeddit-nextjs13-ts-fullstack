@@ -53,17 +53,17 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subpoedditName }) => {
   return (
     <ul className='flex flex-col col-span-2 space-y-6'>
       {posts.map((post: ExtendedPost, index: number) => {
-        const votesAmt = getPostVotes(post.votes)
+        const votesAmount = getPostVotes(post.votes)
         const currentVote = getCurrentVote(post.votes)
         if (index === posts.length - 1) {
           return (
             <li key={post.id} ref={ref}>
-              <Post post={post} subpoedditName={post.subpoeddit.name} />
+              <Post post={post} subpoedditName={post.subpoeddit.name} votesAmount={votesAmount} commentAmount={post.comments.length} />
             </li>)
         } else {
           return (
             <li key={post.id}>
-              <Post post={post} subpoedditName={post.subpoeddit.name} />
+              <Post post={post} subpoedditName={post.subpoeddit.name} votesAmount={votesAmount} commentAmount={post.comments.length} />
             </li>)
 
         }
