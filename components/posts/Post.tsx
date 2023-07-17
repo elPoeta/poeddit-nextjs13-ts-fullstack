@@ -5,7 +5,9 @@ import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import React, { FC, useRef } from 'react'
 import EditorOutput from '../editor/EditorOutput'
+import PostVoteCilent from './PostVoteCilent'
 
+type PartialVote = Pick<Vote, 'type'>
 interface PostProps {
   post: Post & {
     author: User
@@ -13,15 +15,16 @@ interface PostProps {
   }
   subpoedditName: string
   votesAmount: number
-  commentAmount: number
+  commentAmount: number,
+  currentVote?: PartialVote
 }
 
-const Post: FC<PostProps> = ({ post, subpoedditName, votesAmount, commentAmount }) => {
+const Post: FC<PostProps> = ({ post, subpoedditName, votesAmount, commentAmount, currentVote }) => {
   const postRef = useRef<HTMLDivElement>(null)
   return (
     <div className='rounded-md shadow dark:shadow-slate-700'>
       <div className='px-6 py-4 flex justify-between'>
-
+        <PostVoteCilent postId={post.id} initialVotesAmount={votesAmount} initialVote={currentVote?.type} />
         <div className='w-0 flex-1'>
           <div className='max-h-40 mt-1 text-xs text-gray-500 dark:text-slate-300'>
             {subpoedditName ? (

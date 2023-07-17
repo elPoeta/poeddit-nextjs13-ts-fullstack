@@ -58,12 +58,12 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subpoedditName }) => {
         if (index === posts.length - 1) {
           return (
             <li key={post.id} ref={ref}>
-              <Post post={post} subpoedditName={post.subpoeddit.name} votesAmount={votesAmount} commentAmount={post.comments.length} />
+              <Post post={post} subpoedditName={post.subpoeddit.name} votesAmount={votesAmount} commentAmount={post.comments.length} currentVote={currentVote} />
             </li>)
         } else {
           return (
             <li key={post.id}>
-              <Post post={post} subpoedditName={post.subpoeddit.name} votesAmount={votesAmount} commentAmount={post.comments.length} />
+              <Post post={post} subpoedditName={post.subpoeddit.name} votesAmount={votesAmount} commentAmount={post.comments.length} currentVote={currentVote} />
             </li>)
 
         }
