@@ -19,3 +19,15 @@ export const createPost = async ({
     },
   });
 };
+
+export const findPostById = async (id: string) => {
+  return db.post.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      author: true,
+      votes: true,
+    },
+  });
+};

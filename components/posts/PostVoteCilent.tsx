@@ -7,6 +7,10 @@ import React, { FC, useEffect, useState } from 'react'
 import { Button } from '../ui/Button'
 import { ArrowBigDown, ArrowBigUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useMutation } from '@tanstack/react-query'
+import { VotePostRequest } from '@/lib/validators/vote'
+import axios, { AxiosError } from 'axios'
+import { toast } from '@/hooks/use-toast'
 
 interface PostVoteCilentProps {
   postId: string
@@ -22,14 +26,60 @@ const PostVoteCilent: FC<PostVoteCilentProps> = ({ postId, initialVotesAmount, i
   useEffect(() => {
     setCurrentVote(initialVote)
   }, [initialVote])
+
+  const { mutate: vote } = useMutation({
+    mutationFn: async (voteType: VoteType) => {
+      const payload: VotePostRequest = {
+        postId,
+        voteType
+      }
+      const { data } = await axios.patch('/api/subpoeddit/post/vote', payload)
+    },
+    onError: (error, voteType) => {
+      if (voteType === 'UP') {
+        setVotesAmount((prev) => prev - 1);
+      } else {
+        setVotesAmount((prev) => prev + 1);
+      }
+      setCurrentVote(previusVote)
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 401) {
+          return logintoast()
+        }
+      }
+      return toast({
+        title: 'Somthing went wrong',
+        description: 'Your vote was not registered, please try again.',
+        variant: 'destructive'
+      })
+    },
+    onMutate: (type: VoteType) => {
+      if (currentVote === type) {
+        setCurrentVote(undefined)
+        if (type === 'UP') {
+          setVotesAmount((prev) => prev - 1)
+        } else if (type === 'DOWN') {
+          setVotesAmount((prev) => prev + 1)
+        }
+      } else {
+        setCurrentVote(type)
+        if (type === 'UP') {
+          setVotesAmount((prev) => prev + (currentVote ? 2 : 1))
+        } else if (type === 'DOWN') {
+          setVotesAmount((prev) => prev - (currentVote ? 2 : 1))
+
+        }
+      }
+    }
+  })
   return (
     <div className='flex sm:flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0'>
-      <Button size='sm' variant='ghost' aria-label='upvote'>
-        <ArrowBigUp className={cn('h-5 w-5 text-zinc-700 dark:text-slate-300', { 'text-emerald-500 fill-emerald-500:': currentVote === 'UP' })} />
+      <Button onClick={() => vote('UP')} size='sm' variant='ghost' aria-label='upvote'>
+        <ArrowBigUp className={cn('h-5 w-5 text-zinc-700 dark:text-slate-300', { 'text-emerald-500 fill-emerald-500': currentVote === 'UP' })} />
       </Button>
       <p className='text-center py-2 font-medium text-sm text-zinc-900 dark:text-slate-100'>{votesAmount}</p>
-      <Button size='sm' variant='ghost' aria-label='downvote'>
-        <ArrowBigDown className={cn('h-5 w-5 text-zinc-700 dark:text-slate-300', { 'text-red-500 fill-red-500:': currentVote === 'DOWN' })} />
+      <Button onClick={() => vote('DOWN')} size='sm' variant='ghost' aria-label='downvote'>
+        <ArrowBigDown className={cn('h-5 w-5 text-zinc-700 dark:text-slate-300', { 'text-red-500 fill-red-500': currentVote === 'DOWN' })} />
       </Button>
     </div>
   )
