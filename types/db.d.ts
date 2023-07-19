@@ -1,5 +1,5 @@
 export type ExtendedPost = Post & {
-  subpoeddtit: Subpoeddit;
+  subpoeddit: Subpoeddit;
   votes: Vote[];
   comments: Comment[];
   author: User;
