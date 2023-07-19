@@ -67,3 +67,14 @@ export const subscriptionCount = async (name: string) => {
     },
   });
 };
+
+export const findSubscriptionsByUserId = async (userId: string) => {
+  return db.subscription.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      subpoeddit: true,
+    },
+  });
+};

@@ -34,6 +34,9 @@ export const findSubpoedditByNameIncludePostsAll = async (name: string) => {
           votes: true,
           subpoeddit: true,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
         take: INFINITE_SCROLLING_PAGINATION,
       },
     },

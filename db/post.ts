@@ -31,3 +31,24 @@ export const findPostById = async (id: string) => {
     },
   });
 };
+
+export const getPaginationPosts = async (
+  limit: number,
+  page: number,
+  whereCluse: {}
+) => {
+  return db.post.findMany({
+    take: limit,
+    skip: (page - 1) * limit,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      subpoeddit: true,
+      votes: true,
+      comments: true,
+      author: true,
+    },
+    where: whereCluse,
+  });
+};
