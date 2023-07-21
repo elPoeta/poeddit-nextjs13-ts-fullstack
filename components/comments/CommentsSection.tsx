@@ -1,6 +1,6 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/prisma'
-import { Vote } from '@prisma/client'
+import { CommentVote, Vote } from '@prisma/client'
 import React, { FC } from 'react'
 import PostComment from './PostComment'
 import CreateComment from './CreateComment'
@@ -36,7 +36,7 @@ const CommentsSection: FC<CommentsSectionProps> = async ({ postId }) => {
     }, 0)
   }
 
-  const findVoteComment = (votes: Pick<Vote, 'userId'>[]) => {
+  const findVoteComment = (votes: Pick<CommentVote, 'userId' | 'type'>[]) => {
     return votes.find(vote => vote.userId === session?.user.id)
   }
 
@@ -50,7 +50,7 @@ const CommentsSection: FC<CommentsSectionProps> = async ({ postId }) => {
           const topLevelCommentVote = findVoteComment(topLevelComment.votes)
           return <div key={topLevelComment.id} className='flex flex-col'>
             <div className='mb-2'>
-              <PostComment comment={topLevelComment} />
+              <PostComment comment={topLevelComment} postId={postId} initialVotesAmount={topLevelCommentVotesAmount} initialVote={topLevelCommentVote} />
             </div>
           </div>
         })}
