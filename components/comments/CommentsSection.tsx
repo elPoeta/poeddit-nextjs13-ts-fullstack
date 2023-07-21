@@ -52,6 +52,13 @@ const CommentsSection: FC<CommentsSectionProps> = async ({ postId }) => {
             <div className='mb-2'>
               <PostComment comment={topLevelComment} postId={postId} initialVotesAmount={topLevelCommentVotesAmount} initialVote={topLevelCommentVote} />
             </div>
+            {topLevelComment.replies.sort((a, b) => b.votes.length - a.votes.length).map((reply) => {
+              const replyVotesAmount = getVotesAmount(reply.votes)
+              const replyVote = findVoteComment(reply.votes)
+              return <div key={reply.id} className='ml-2 py-2 pl-4 border-l-2 border-zinc-200'>
+                <PostComment postId={postId} comment={reply} initialVotesAmount={replyVotesAmount} initialVote={replyVote} />
+              </div>
+            })}
           </div>
         })}
       </div>

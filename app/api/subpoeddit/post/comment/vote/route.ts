@@ -1,4 +1,5 @@
 import { getAuthSession } from "@/lib/auth";
+import { db } from "@/lib/prisma";
 import { VoteCommentValidator } from "@/lib/validators/vote";
 import { z } from "zod";
 
