@@ -11,6 +11,48 @@ export const PATCH = async (req: Request) => {
     }
     const body = await req.json();
     const { commentId, voteType } = VoteCommentValidator.parse(body);
+
+    const voteExist = await db.commentVote.findFirst({
+      where: {
+        userId: session.user.id,
+        commentId,
+      },
+    });
+
+    if (voteExist) {
+      if (voteExist.type === voteType) {
+        await db.commentVote.delete({
+          where: {
+            userId_commentId: {
+              userId: session.user.id,
+              commentId,
+            },
+          },
+        });
+      } else {
+        await db.commentVote.update({
+          where: {
+            userId_commentId: {
+              userId: session.user.id,
+              commentId,
+            },
+          },
+          data: {
+            type: voteType,
+          },
+        });
+      }
+      return new Response("OK");
+    }
+
+    await db.commentVote.create({
+      data: {
+        type: voteType,
+        commentId,
+        userId: session.user.id,
+      },
+    });
+    return new Response("OK");
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 });
