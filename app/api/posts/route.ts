@@ -21,8 +21,8 @@ export const GET = async (req: Request) => {
 
     const { limit, page, subpoedditName } = z
       .object({
-        limit: z.number(),
-        page: z.number(),
+        limit: z.string(),
+        page: z.string(),
         subpoedditName: z.string().nullish().optional(),
       })
       .parse({
@@ -48,7 +48,11 @@ export const GET = async (req: Request) => {
       };
     }
 
-    const posts = await getPaginationPosts(limit, page, whereCluse);
+    const posts = await getPaginationPosts(
+      parseInt(limit),
+      parseInt(page),
+      whereCluse
+    );
 
     return new Response(JSON.stringify(posts));
   } catch (error) {

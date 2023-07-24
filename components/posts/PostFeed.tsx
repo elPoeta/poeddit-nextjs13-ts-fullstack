@@ -27,7 +27,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subpoedditName }) => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ['infinite-query'],
     async ({ pageParam = 1 }) => {
-      const query = `/api/posts?limit:${INFINITE_SCROLLING_PAGINATION}&page=${pageParam}${!!subpoedditName ? `&subpoedditName=${subpoedditName}` : ''}`
+      const query = `/api/posts?limit=${INFINITE_SCROLLING_PAGINATION}&page=${pageParam}${!!subpoedditName ? `&subpoedditName=${subpoedditName}` : ''}`
       const { data } = await axios.get(query)
       return data as ExtendedPost
     }, {
