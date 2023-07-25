@@ -1,5 +1,6 @@
 import UserNameForm from '@/components/user/UserNameForm'
-import { getAuthSession } from '@/lib/auth'
+import { authOptions, getAuthSession } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 export const metadata = {
@@ -10,7 +11,9 @@ export const metadata = {
 
 const SettingsPage = async () => {
   const session = await getAuthSession()
-
+  if (!session?.user) {
+    redirect(authOptions.pages?.signIn || '/sign-in')
+  }
   return (
     <div className='max-w-4xl mx-auto py-12'>
       <div className='grid items-start gap-8'>
